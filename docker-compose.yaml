@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    container_name: WIAMS2
+    container_name: WIAMS
     restart: unless-stopped
     working_dir: /var/www
     volumes:
@@ -14,7 +14,7 @@ services:
 
   webserver:
     image: nginx:latest
-    container_name: WIAMS2_webserver
+    container_name: WIAMS_webserver
     restart: unless-stopped
     ports:
       - "8000:80"
@@ -29,11 +29,11 @@ services:
 
   db:
     image: mysql:5.7
-    container_name: WIAMS_db2
+    container_name: WIAMS_db
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: WIAMS2
+      MYSQL_DATABASE: WIAMS
       MYSQL_USER: laravel_user
       MYSQL_PASSWORD: secret
     ports:
