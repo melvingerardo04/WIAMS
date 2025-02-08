@@ -2,10 +2,9 @@
 FROM php:8.2-fpm
 
 # Install dependencies and extensions
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev git unzip libzip-dev libxml2-dev && \
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev git unzip libzip-dev libxml2-dev nodejs npm && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install gd zip pdo pdo_mysql xml dom \
-    apt-get install -y nodejs npm
+    docker-php-ext-install gd zip pdo pdo_mysql xml dom  
 
 # Set the working directory inside the container
 WORKDIR /var/www
