@@ -33,6 +33,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('useraccounts')" :active="route().current('useraccounts')">
                                     User Accounts
                                 </NavLink>
+                                <NavLink :href="route('ipAddress')" :active="route().current('ipAddress')">
+                                    IP Address
+                                </NavLink>
                             </div>
                         </div>
 
@@ -83,6 +86,9 @@ const showingNavigationDropdown = ref(false);
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('useraccounts')" :active="route().current('useraccounts')">
                             User Accounts
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('ipAddress')" :active="route().current('ipAddress')">
+                            IP Address
                         </ResponsiveNavLink>
                     </div>
 

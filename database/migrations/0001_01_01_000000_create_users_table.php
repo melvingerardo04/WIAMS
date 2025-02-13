@@ -13,11 +13,22 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->enum('user_type', ['normal', 'admin'])->default('normal');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->timestamps();
+        });
+
+        Schema::create('ip_addresses', function (Blueprint $table) {
+            $table->id();
+            $table->string('ip_v4', 45)->nullable();
+            $table->string('ip_v6', 45)->nullable();
+            $table->string('label', 45)->nullable();
+            $table->string('comment', 45)->nullable();
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
 
@@ -43,6 +54,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('ip_addresses');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }

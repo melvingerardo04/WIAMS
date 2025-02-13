@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\IPAddressController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,6 +21,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/useraccounts', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('useraccounts');
+
+Route::get('/ipAddress', [IPAddressController::class, 'index'])->middleware(['auth', 'verified'])->name('ipAddress');
+Route::get('/ipAddress/create', [IPAddressController::class, 'create'])->middleware(['auth', 'verified'])->name('ipAddress.create');
+Route::post('/ipAddress', [IPAddressController::class, 'store'])->middleware(['auth', 'verified'])->name('ipAddress.store');
+Route::get('/ipAddress/{id}/edit', [IPAddressController::class, 'edit'])->middleware(['auth', 'verified'])->name('ipAddress.edit');
+Route::put('/ipAddress/{id}', [IPAddressController::class, 'update'])->middleware(['auth', 'verified'])->name('ipAddress.update');
+Route::delete('/ipAddress/{id}', [IPAddressController::class, 'destroy'])->middleware(['auth', 'verified'])->name('ipAddress.destroy');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
