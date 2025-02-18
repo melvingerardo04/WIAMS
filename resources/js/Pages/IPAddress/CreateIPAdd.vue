@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
     auth: Object,
@@ -34,6 +34,7 @@ const submit = () => {
                     <div class="p-6 text-gray-900">
                         <div>
                             <h1>Add IP Address</h1>
+                            <br>
                             <form @submit.prevent="submit">
                                 <div>
                                     <label for="ip_v4">IP Address V4</label>
@@ -52,7 +53,7 @@ const submit = () => {
                                     <input class="mt-1 block w-full form-control"  v-model="form.comment" type="text" id="comment" />
                                 </div>
                                 <input v-model="form.created_by" type="hidden" id="created_by" />
-                                <button type="submit">Add</button>
+                             <PrimaryButton class="mt-4">Add IP Address</PrimaryButton>
                             </form>
                         </div>
                     </div>

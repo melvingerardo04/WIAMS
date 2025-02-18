@@ -35,28 +35,32 @@ class IPAddressController extends Controller
     // Method to delete an IP address
     public function destroy($id)
     {
-        $ipAddress = IpAddress::findOrFail($id);
-        $ipAddress->delete();
-        return redirect()->route('ipAddress');
+        try {
+            $ipAddress = IPAddress::findOrFail($id);
+            $ipAddress->delete();
+            return response()->json(['message' => 'IP address deleted successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete IP address.'], 500);
+        }
     }
 
     public function create()
-{
-    return Inertia::render('IPAddress/CreateIPAdd');
-}
+    {
+        return Inertia::render('IPAddress/CreateIPAdd');
+    }
 
-public function store(Request $request)
-{
-    $request->validate([
-        'ip_v4' => 'nullable|ip',
-        'ip_v6' => 'nullable|ip',
-        'label' => 'nullable|string|max:45',
-        'comment' => 'nullable|string|max:45',
-        'created_by' => 'nullable|string|max:45',
-    ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'ip_v4' => 'nullable|ip',
+            'ip_v6' => 'nullable|ip',
+            'label' => 'nullable|string|max:45',
+            'comment' => 'nullable|string|max:45',
+            'created_by' => 'nullable|string|max:45',
+        ]);
 
-    IPAddress::create($request->all());
+        IPAddress::create($request->all());
 
-    return redirect()->route('ipAddress');
-}
+        return redirect()->route('ipAddress');
+    }
 }

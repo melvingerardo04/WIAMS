@@ -3,6 +3,7 @@ import { defineProps, ref } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import axios from 'axios';
+import DangerButton from '@/Components/DangerButton.vue';
 
 const props = defineProps({
     ipAddresses: Array,
@@ -10,12 +11,14 @@ const props = defineProps({
 });
 
 const deleteIPAddress = async (id) => {
-    try {
-        await axios.delete(`/ipAddress/${id}`);
-        // Optionally, you can remove the IP address from the local array to update the UI
-        props.ipAddresses = props.ipAddresses.filter(ipAddress => ipAddress.id !== id);
-    } catch (error) {
-        console.error('Error deleting IP address:', error);
+    if (confirm('Are you sure you want to delete this IP address?')) {
+        try {
+            await axios.delete(`/ipAddress/${id}`);
+            window.location.reload();
+        } catch (error) {
+            console.error('Error deleting IP address:', error);
+            alert('Failed to delete IP address. Please try again later.');
+        }
     }
 };
 </script>
@@ -52,9 +55,8 @@ const deleteIPAddress = async (id) => {
                                     <td class="px-6 py-4 whitespace-nowrap">{{ ipAddress.ip_v6 }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ ipAddress.name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <Link v-if="props.auth.user.id == ipAddress.user_id" :href="`/ipAddress/${ipAddress.id}/edit`" class="text-blue-600 hover:text-blue-900">Edit</Link>
-                                            <button v-if="props.auth.user.user_type === 'admin'" @click="deleteIPAddress(ipAddress.id)" class="text-red-600 hover:text-red-900 ml-4">Delete </button>
-                                        
+                                        <Link v-if="props.auth.user.id == ipAddress.user_id" :href="`/ipAddress/${ipAddress.id}/edit`" class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:bg-green-700">Edit</Link>
+                                        <DangerButton v-if="props.auth.user.user_type === 'admin'"  @click="deleteIPAddress(ipAddress.id)" class="text-red-600 hover:text-red-900 ml-4">Delete</DangerButton>
                                     </td>
                                 </tr>
                             </tbody>
