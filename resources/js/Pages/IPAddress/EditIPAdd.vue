@@ -4,7 +4,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
-    ipAddress: Array
+    ipAddress: Object
 });
 
 const form = useForm({
@@ -14,15 +14,13 @@ const form = useForm({
     comment: props.ipAddress.comment
 });
 
-
-
 const updateUser = () => {
-    form.put(`/ipAddress/${props.user.id}`);
+    form.put(`/ipAddress/${props.ipAddress.id}`);
 };
 </script>
 
 <template>
-    <Head title="Edit User" />
+    <Head title="Edit IP Address" />
 
     <AuthenticatedLayout>
         <template>
@@ -50,7 +48,7 @@ const updateUser = () => {
                             </div>
                             <div class="mt-4">
                                 <label for="Comment">Comment</label>
-                                <input v-model="form.comment" type="text" name="comment" id="comment" class="mt-1 block w-full" required>
+                                <input v-model="form.comment" type="text" name="comment" id="comment" class="mt-1 block w-full">
                             </div>
                             <div class="mt-4">
                                 <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 active:bg-blue-600 disabled:opacity-25 transition">Update</button>
