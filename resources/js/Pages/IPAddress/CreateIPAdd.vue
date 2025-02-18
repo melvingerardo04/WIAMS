@@ -38,22 +38,22 @@ const submit = () => {
                             <form @submit.prevent="submit">
                                 <div>
                                     <label for="ip_v4">IP Address V4</label>
-                                    <input class="mt-1 block w-full form-control"  v-model="form.ip_v4" type="text" id="ip_v4" />
+                                    <input class="mt-1 block w-full form-control"  v-model="form.ip_v4" type="text" id="ip_v4" required />
                                 </div>
                                 <div>
                                     <label for="ip_v6">IP Address V6</label>
-                                    <input class="mt-1 block w-full form-control"  v-model="form.ip_v6" type="text" id="ip_v6" />
+                                    <input class="mt-1 block w-full form-control"  v-model="form.ip_v6" type="text" id="ip_v6" required/>
                                 </div>
                                 <div>
                                     <label for="label">Label</label>
-                                    <input class="mt-1 block w-full form-control"  v-model="form.label" type="text" id="label" />
+                                    <input class="mt-1 block w-full form-control"  v-model="form.label" type="text" id="label" required/>
                                 </div>
                                 <div>
                                     <label for="comment">Comment</label>
                                     <input class="mt-1 block w-full form-control"  v-model="form.comment" type="text" id="comment" />
                                 </div>
                                 <input v-model="form.created_by" type="hidden" id="created_by" />
-                             <PrimaryButton class="mt-4">Add IP Address</PrimaryButton>
+                             <PrimaryButton class="mt-4">Save IP Address</PrimaryButton>
                             </form>
                         </div>
                     </div>
