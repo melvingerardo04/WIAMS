@@ -33,7 +33,7 @@ const deleteIPAddress = async (id) => {
                     <div class="p-6 text-gray-900">
                         <Link
                             :href="route('ipAddress.create')"
-                            class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            class="ml-4 inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 focus:outline-none focus:border-gray-700 focus:ring focus:ring-gray-200 active:bg-gray-600 disabled:opacity-25 transition"
                         > Add IP Address
                         </Link>
                         <table class="min-w-full divide-y divide-gray-200">
@@ -56,7 +56,7 @@ const deleteIPAddress = async (id) => {
                                     <td class="px-6 py-4 whitespace-nowrap">{{ ipAddress.name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <Link v-if="props.auth.user.id == ipAddress.user_id" :href="`/ipAddress/${ipAddress.id}/edit`" class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:bg-green-700">Edit</Link>
-                                        <DangerButton v-if="props.auth.user.user_type === 'admin'"  @click="deleteIPAddress(ipAddress.id)" class="text-red-600 hover:text-red-900 ml-4">Delete</DangerButton>
+                                        <DangerButton   @click="deleteIPAddress(ipAddress.id)" class="text-red-600 hover:text-red-900 ml-4">Delete</DangerButton>
                                     </td>
                                 </tr>
                             </tbody>
