@@ -49,7 +49,6 @@ const deleteIPAddress = async (id) => {
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr v-for="(ipAddress, index) in ipAddresses" :key="ipAddress.id">
-                                    {{ props.auth.user.id }}
                                     <td class="px-6 py-4 whitespace-nowrap">{{ index + 1 }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ ipAddress.label }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ ipAddress.ip_v4 }}</td>
