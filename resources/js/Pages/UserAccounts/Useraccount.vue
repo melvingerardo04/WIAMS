@@ -3,6 +3,7 @@ import { defineProps, ref } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import axios from 'axios';
+import DangerButton from '@/Components/DangerButton.vue';
 
 const props = defineProps({
     users: Array
@@ -48,8 +49,8 @@ const deleteUser = async (id) => {
                                     <td class="px-6 py-4 whitespace-nowrap">{{ user.name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ user.email }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <Link :href="`/users/${user.id}/edit`" class="text-blue-600 hover:text-blue-900">Edit</Link>
-                                        <button @click="deleteUser(user.id)" class="text-red-600 hover:text-red-900 ml-4">Delete</button>
+                                        <Link  :href="`/users/${user.id}/edit`" class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:bg-green-700">Edit</Link>
+                                        <DangerButton @click="deleteUser(user.id)" class="text-red-600 hover:text-red-900 ml-4">Delete</DangerButton>
                                     </td>
                                 </tr>
                             </tbody>
