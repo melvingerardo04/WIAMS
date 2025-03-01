@@ -7,6 +7,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LogViewerController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -32,6 +33,9 @@ Route::post('/ipAddress', [IPAddressController::class, 'store'])->middleware(['a
 Route::get('/ipAddress/{id}/edit', [IPAddressController::class, 'edit'])->middleware(['auth', 'verified'])->name('ipAddress.edit');
 Route::put('/ipAddress/{id}', [IPAddressController::class, 'update'])->middleware(['auth', 'verified'])->name('ipAddress.update');
 Route::delete('/ipAddress/{id}', [IPAddressController::class, 'destroy'])->middleware(['auth', 'verified'])->name('ipAddress.destroy');
+
+Route::get('/logViewer', [LogViewerController::class, 'index'])->name('logViewer');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

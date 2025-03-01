@@ -7,6 +7,7 @@ use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\AuditLog;
 
 class IPAddressController extends Controller
 {
@@ -29,19 +30,29 @@ class IPAddressController extends Controller
     {
         $ipAddress = IpAddress::findOrFail($id);
         $ipAddress->update($request->all());
+
+        AuditLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Updated IP Address',
+            'details' => json_encode($request->all())
+        ]);
+
         return redirect()->route('ipAddress');
     }
 
     // Method to delete an IP address
     public function destroy($id)
     {
-        try {
-            $ipAddress = IPAddress::findOrFail($id);
-            $ipAddress->delete();
-            return response()->json(['message' => 'IP address deleted successfully.']);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to delete IP address.'], 500);
-        }
+        $ipAddress = IpAddress::findOrFail($id);
+        $ipAddress->delete();
+
+        AuditLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Deleted IP Address',
+            'details' => json_encode(['id' => $id])
+        ]);
+
+        return redirect()->route('ipAddress');
     }
 
     public function create()
@@ -60,6 +71,12 @@ class IPAddressController extends Controller
         ]);
 
         IPAddress::create($request->all());
+
+        AuditLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Created IP Address',
+            'details' => json_encode($request->all())
+        ]);
 
         return redirect()->route('ipAddress');
     }

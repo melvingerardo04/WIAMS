@@ -36,6 +36,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('ipAddress')" :active="route().current('ipAddress')">
                                     IP Address
                                 </NavLink>
+                                <NavLink v-if="$page.props.auth.user.user_type == 'admin' " :href="route('logViewer')" :active="route().current('logViewer')">
+                                    Log Viewer
+                                </NavLink>
                             </div>
                         </div>
 
@@ -89,6 +92,9 @@ const showingNavigationDropdown = ref(false);
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('ipAddress')" :active="route().current('ipAddress')">
                             IP Address
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink v-if="$page.props.auth.user.user_type == 'admin'" :href="route('logViewer')" :active="route().current('logViewer')">
+                            Log Viewer
                         </ResponsiveNavLink>
                     </div>
 

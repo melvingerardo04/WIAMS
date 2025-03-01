@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\AuditLog;
 use Inertia\Inertia;
+use Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -27,6 +29,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
+
+        AuditLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Updated User',
+            'details' => json_encode($request->all())
+        ]);
+
         return redirect()->route('useraccounts');
     }
 
@@ -35,6 +44,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
+
+        AuditLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Deleted User',
+            'details' => json_encode(['id' => $id])
+        ]);
+
         return redirect()->route('useraccounts');
     }
 }

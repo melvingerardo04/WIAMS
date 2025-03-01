@@ -49,13 +49,16 @@ const deleteIPAddress = async (id) => {
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr v-for="(ipAddress, index) in ipAddresses" :key="ipAddress.id">
+                                    {{ props.auth.user.id }}
                                     <td class="px-6 py-4 whitespace-nowrap">{{ index + 1 }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ ipAddress.label }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ ipAddress.ip_v4 }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ ipAddress.ip_v6 }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ ipAddress.name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <Link v-if="props.auth.user.id == ipAddress.user_id" :href="`/ipAddress/${ipAddress.id}/edit`" class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:bg-green-700">Edit</Link>
+
+                                        
+                                        <Link v-if="props.auth.user.id == ipAddress.user_id || props.auth.user.user_type  == 'admin'" :href="`/ipAddress/${ipAddress.id}/edit`" class="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 active:bg-green-700 ">Edit</Link>
                                         <DangerButton v-if="props.auth.user.user_type  == 'admin' "   @click="deleteIPAddress(ipAddress.id)" class="text-red-600 hover:text-red-900 ml-4">Delete</DangerButton>
                                     </td>
                                 </tr>
