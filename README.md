@@ -48,6 +48,10 @@ chmod -R 777 bootstrap
 Execute the Laravel migration command inside the Docker container:
 
 docker exec -it WIAMS php artisan migrate --force
+
+Install Vite and build assets:
+
+npm install
 npm run build
 
 5. Setup Complete!
