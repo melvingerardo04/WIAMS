@@ -51,7 +51,7 @@ docker exec -it WIAMS php artisan migrate --force
 
 Install Vite and build assets:
 
-npm install vite --save-dev
+npm install
 npm run build
 
 5. Setup Complete!
