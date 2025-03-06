@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\AuditLog;
 
 class RegisteredUserController extends Controller
 {
@@ -36,10 +37,17 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $userType = $request->name === 'admin' ? 'admin' : 'normal';
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'user_type' => $userType,
             'password' => Hash::make($request->password),
+        ]);
+        AuditLog::create([
+            'user_id' => $user->id,
+            'action' => 'Created User',
+            'details' => json_encode($request->all())
         ]);
 
         event(new Registered($user));

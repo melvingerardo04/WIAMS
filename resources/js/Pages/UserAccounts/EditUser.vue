@@ -4,12 +4,14 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
-    user: Object
+    user: Object,
+    auth: Object
 });
 
 const form = useForm({
     name: props.user.name,
     email: props.user.email,
+    userType: props.user.user_type || 'normal', // Default to 'normal' if not provided
 });
 
 const updateUser = () => {
@@ -39,6 +41,13 @@ const updateUser = () => {
                             <div class="mt-4">
                                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                                 <input v-model="form.email" type="email" name="email" id="email" class="mt-1 block w-full" required>
+                            </div>
+                            <div class="mt-4" v-if="props.auth.user.user_type  == 'admin' ">
+                                <label for="userType" class="block text-sm font-medium text-gray-700">User Type</label>
+                                <select v-model="form.userType" name="user_type" id="user_type" class="mt-1 block w-full" required>
+                                    <option value="admin">admin</option>
+                                    <option value="normal">normal</option>
+                                </select>
                             </div>
                             <div class="mt-4">
                                 <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 active:bg-blue-600 disabled:opacity-25 transition">Update</button>
